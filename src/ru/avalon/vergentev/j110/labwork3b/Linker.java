@@ -1,4 +1,4 @@
-package ru.avalon.vergentev.labwork3b;
+package ru.avalon.vergentev.j110.labwork3b;
 
 public class Linker {
     Linker next;
