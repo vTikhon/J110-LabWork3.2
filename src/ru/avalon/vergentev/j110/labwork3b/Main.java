@@ -7,6 +7,10 @@ public class Main {
         list1.addToEnd("BBB");
         list1.addToEnd("CCC");
         list1.addToEnd("DDD");
+        list1.print();
+        list1.removingFromBegin();
+        list1.removingFromEnd();
+        list1.print();
 
 
     }

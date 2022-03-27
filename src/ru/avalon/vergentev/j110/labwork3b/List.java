@@ -1,12 +1,13 @@
 package ru.avalon.vergentev.j110.labwork3b;
 
 public class List {
-    private Linker head;
-    private Linker tail;
+    private LinkedList head;
+    private LinkedList tail;
 
     //Constructors
     public List() {
         head = null;
+        tail = null;
     }
 
     //Methods
@@ -17,7 +18,7 @@ public class List {
 
     //метод добавления элемента в начало списка
     public void addToBegin (String data) {
-        Linker element = new Linker(data);
+        LinkedList element = new LinkedList(data);
         element.data = data;
         if (isEmpty()) {
             head = element;
@@ -29,10 +30,11 @@ public class List {
     }
     //метод добавления элемента в конец списка
     public void addToEnd (String data) {
-        Linker element = new Linker(data);
+        LinkedList element = new LinkedList(data);
         element.data = data;
         if (isEmpty()) {
             head = element;
+            tail = element;
         } else {
             tail.next = element;
         }
@@ -41,7 +43,7 @@ public class List {
 
     //метод печатания заданного в main списка с проверкой его пустоты
     public void print () {
-        Linker element = head;
+        LinkedList element = head;
         if (element != null) {
             while (element != null) {
                 System.out.println(element.data);
@@ -55,12 +57,12 @@ public class List {
 
     //метод извлечения элемента из начала списка
     public void extractionFromBegin () {
-        Linker element = head;
+        LinkedList element = head;
         System.out.println(element.data);
     }
     //метод извлечения элемента из конца списка
     public void extractionFromEnd () {
-        Linker element = tail;
+        LinkedList element = tail;
         System.out.println(element.data);
     }
 
@@ -70,19 +72,18 @@ public class List {
     }
     //метод удаления элемента из конца списка
     public void removingFromEnd () {
-        Linker element = head;
-        while (element != tail) {
-            if (element.next == tail) {
-                tail = element;
-                tail.next = null; break;
-            }
-            element = element.next;
-        }
+        tail.prev = tail;
+        tail.next = null;
+        System.out.println(head.data);
+        System.out.println(head.next.data);
+        System.out.println(tail.prev.data);
+        System.out.println(tail.data);
+        System.out.print('\n');
     }
 
     //метод определения на содержание заданного значения
     public void keySearch (String key) {
-        Linker element = head;
+        LinkedList element = head;
         while (element != null) {
             if (element.data == key) {
                 System.out.println("There is the searching element " + key + " at the list. ");
@@ -94,23 +95,23 @@ public class List {
 
     //метод удаления из списка заданного значения
     public void keySearchAndRemove (String key) {
-        Linker element = head;
-        Linker previousElement = head;
+        LinkedList element = head;
+        LinkedList prevElement = head;
         while (element.data != null && element.data != key) {
-            previousElement = element;
+            prevElement = element;
             element = element.next;
         }
 
         if (isEmpty()) {
             head = head.next;
         } else {
-            previousElement.next = element.next;
+            prevElement.next = element.next;
         }
     }
 
     //метод добавления к элементам списка заданного значения
     public void modifyElement (String mod) {
-        Linker element = head;
+        LinkedList element = head;
         if (element != null) {
             while (element != null) {
                 element.data = element.data + mod;
