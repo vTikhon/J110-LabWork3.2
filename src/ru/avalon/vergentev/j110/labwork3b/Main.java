@@ -30,10 +30,15 @@ public class Main {
         list2.print(); //выводим изменённый список на экран
         list2.addCollectionToEnd(list3); //добавляем элементы коллекции в конец списка
         list2.print(); //выводим изменённый список на экран
+        list2.addListToEnd(list1);
+        list2.print();
+        list2.getElement(3); //получение содержимого элемента по номеру
+        list2.getLength(); //длина списка
+        list2.addListToBegin(list1); //добавляем элементы списка в начало списка
+        list2.print();
+        list2.addListToEnd(list1); //добавляем элементы списка в конец списка
+        list2.print();
         list2.printInverse(); //обратный вывод списка
-
-
-
 
     }
 }

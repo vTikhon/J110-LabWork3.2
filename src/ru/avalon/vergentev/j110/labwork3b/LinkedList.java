@@ -3,6 +3,7 @@ package ru.avalon.vergentev.j110.labwork3b;
 public class LinkedList {
     public LinkedList prev;
     public LinkedList next;
+//    public LinkedList length;
     public String data;
 
 

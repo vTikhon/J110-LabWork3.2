@@ -56,19 +56,6 @@ public class List {
             throw new IllegalArgumentException("The list is null. ");
         }
     }
-    //обратный метод печатания заданного в main списка с проверкой его пустоты
-    public void printInverse () {
-        LinkedList element = tail;
-        if (element != null) {
-            while (element != null) {
-                System.out.println(element.data);
-                element = element.prev;
-            }
-            System.out.print('\n');
-        } else {
-            throw new IllegalArgumentException("The list is null. ");
-        }
-    }
 
     //метод извлечения элемента из начала списка
     public void extractionFromBegin () {
@@ -148,8 +135,8 @@ public class List {
     }
     //метод добавления элементов массива в конец списка
     public void addArrayToEnd (String [] array1) {
-        for (int i = 0; i < array1.length; i++) {
-            addToEnd(array1[i]);
+        for (String i : array1) {
+            addToEnd(i);
         }
         System.out.print('\n');
     }
@@ -163,20 +150,59 @@ public class List {
     }
     //метод добавления элементов коллекции в конец списка
     public void addCollectionToEnd (ArrayList<String> list2) {
-        for (int i = 0; i < list2.size(); i++) {
-            addToEnd(list2.get(i));
+        for (String i : list2) {
+            addToEnd(i);
         }
         System.out.print('\n');
     }
 
-    //поглощение списка с добавлением в конец списка
-    public void absorptionWithAddToEnd (ArrayList<String> list2) {
-        for (int i = 0; i < list2.size(); i++) {
-            addToEnd(list2.get(i));
+    //метод получения N-ого элемента
+    public String getElement (int N) {
+        int i = 0;
+        LinkedList element = head;
+        while (element != null && N != i) {
+            i++;
+            element = element.next;
+        }
+        if (N >= i) {
+            return element.data;
+        } else {
+            throw new IllegalArgumentException ("index out of the range");
+        }
+    }
+
+    //метод счёта длины списка
+    public int getLength () {
+        int i = 0;
+        LinkedList element = head;
+        while (element != null) {
+            i++;
+            element = element.next;
+        }
+        return i;
+    }
+
+    //метод добавления элементов списка в начало списка
+    public void addListToBegin (List list1) {
+        for (int i = list1.getLength()-1; i >= 0; i--) {
+            addToBegin(list1.getElement(i));
+        }
+        System.out.print('\n');
+    }
+    //метод добавления элементов списка в конец списка
+    public void addListToEnd (List list1) {
+        for (int i = 0; i < list1.getLength(); i++) {
+            addToEnd(list1.getElement(i));
         }
         System.out.print('\n');
     }
 
+    //обратный метод печатания заданного в main списка с проверкой его пустоты
+    public void printInverse () {
+        for (int i = getLength()-1; i >= 0; i--) {
+            System.out.println(getElement(i));
+        }
+    }
 
     //Getters and Setters
 
