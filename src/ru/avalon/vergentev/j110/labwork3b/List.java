@@ -1,5 +1,7 @@
 package ru.avalon.vergentev.j110.labwork3b;
 
+import java.util.ArrayList;
+
 public class List {
     private LinkedList head;
     private LinkedList tail;
@@ -41,13 +43,26 @@ public class List {
         tail = element;
     }
 
-    //метод печатания заданного в main списка с проверкой его пустоты
+    //прямой метод печатания заданного в main списка с проверкой его пустоты
     public void print () {
         LinkedList element = head;
         if (element != null) {
             while (element != null) {
                 System.out.println(element.data);
                 element = element.next;
+            }
+            System.out.print('\n');
+        } else {
+            throw new IllegalArgumentException("The list is null. ");
+        }
+    }
+    //обратный метод печатания заданного в main списка с проверкой его пустоты
+    public void printInverse () {
+        LinkedList element = tail;
+        if (element != null) {
+            while (element != null) {
+                System.out.println(element.data);
+                element = element.prev;
             }
             System.out.print('\n');
         } else {
@@ -72,13 +87,14 @@ public class List {
     }
     //метод удаления элемента из конца списка
     public void removingFromEnd () {
-        tail.prev = tail;
-        tail.next = null;
-        System.out.println(head.data);
-        System.out.println(head.next.data);
-        System.out.println(tail.prev.data);
-        System.out.println(tail.data);
-        System.out.print('\n');
+        LinkedList element = head;
+        while (element != tail) {
+            if (element.next == tail) {
+                tail = element;
+                tail.next = null; break;
+            }
+            element = element.next;
+        }
     }
 
     //метод определения на содержание заданного значения
@@ -121,6 +137,44 @@ public class List {
         } else {
             throw new IllegalArgumentException("The list is null. ");
         }
+    }
+
+    //метод добавления элементов массива в начало списка
+    public void addArrayToBegin (String [] array1) {
+        for (int i = array1.length-1; i >= 0; i--) {
+            addToBegin(array1[i]);
+        }
+        System.out.print('\n');
+    }
+    //метод добавления элементов массива в конец списка
+    public void addArrayToEnd (String [] array1) {
+        for (int i = 0; i < array1.length; i++) {
+            addToEnd(array1[i]);
+        }
+        System.out.print('\n');
+    }
+
+    //метод добавления элементов коллекции в начало списка
+    public void addCollectionToBegin (ArrayList<String> list2) {
+        for (int i = list2.size()-1; i >= 0; i--) {
+            addToBegin(list2.get(i));
+        }
+        System.out.print('\n');
+    }
+    //метод добавления элементов коллекции в конец списка
+    public void addCollectionToEnd (ArrayList<String> list2) {
+        for (int i = 0; i < list2.size(); i++) {
+            addToEnd(list2.get(i));
+        }
+        System.out.print('\n');
+    }
+
+    //поглощение списка с добавлением в конец списка
+    public void absorptionWithAddToEnd (ArrayList<String> list2) {
+        for (int i = 0; i < list2.size(); i++) {
+            addToEnd(list2.get(i));
+        }
+        System.out.print('\n');
     }
 
 
