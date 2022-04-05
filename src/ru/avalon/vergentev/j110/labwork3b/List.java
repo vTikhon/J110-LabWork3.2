@@ -39,8 +39,8 @@ public class List {
             tail = element;
         } else {
             tail.next = element;
+            tail = element;
         }
-        tail = element;
     }
 
     //прямой метод печатания заданного в main списка с проверкой его пустоты
@@ -83,6 +83,10 @@ public class List {
             element = element.next;
         }
     }
+    //метод удаления элемента из конца списка (ПОЧЕМУ-ТО НЕ РАБОТАЕТ)
+//    public void removingFromEnd () {
+//        tail = tail.prev;
+//    }
 
     //метод определения на содержание заданного значения
     public void keySearch (String key) {
