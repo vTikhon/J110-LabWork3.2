@@ -20,7 +20,7 @@ public class List {
     }
 
     //метод добавления элемента в начало списка
-    public void addToBegin (String data) {
+    public void addToBegin(String data) {
         Linker element = new Linker(data);
         element.data = data;
         if (isEmpty()) {
@@ -31,8 +31,9 @@ public class List {
             head = element;
         }
     }
+
     //метод добавления элемента в конец списка
-    public void addToEnd (String data) {
+    public void addToEnd(String data) {
         Linker element = new Linker(data);
         element.data = data;
         if (isEmpty()) {
@@ -45,50 +46,65 @@ public class List {
     }
 
     //прямой метод печатания заданного в main списка с проверкой его пустоты
-    public void print () {
-        Linker element = head;
-        if (element != null) {
+    public void print() {
+        try {
+            Linker element = head;
             while (element != null) {
                 System.out.println(element.data);
                 element = element.next;
             }
             System.out.print('\n');
-        } else {
-            throw new IllegalArgumentException("The list is null. ");
+        } catch (IllegalArgumentException e) {
+            System.out.println(("The list is null. "));
         }
     }
 
-    //метод извлечения элемента из начала списка
-    public Linker extractionFromBegin () {
+    //метод извлечения элемента из начала списка (задание для односвязного списка)
+    public Linker extractionFromBegin() {
         return head;
     }
-    //метод извлечения элемента из конца списка
-    public Linker extractionFromEnd () {
+
+    //метод извлечения элемента из конца списка (задание для односвязного списка)
+    public Linker extractionFromEnd() {
         return tail;
     }
 
-    //метод удаления элемента из начала списка
-    public void removingFromBegin () {
-        head = head.next;
+    //метод удаления элемента из начала списка (задание для односвязного списка)
+    public void removingFromBegin() {
+        if (head != tail) {
+            head = head.next;
+        } else {
+            head = null;
+        }
     }
-    //метод удаления элемента из конца списка
-    public void removingFromEnd () {
+
+    //метод удаления элемента из конца списка (задание для односвязного списка)
+    public void removingFromEnd() {
         Linker element = head;
-        while (element != tail) {
-            if (element.next == tail) {
-                tail = element;
-                tail.next = null; break;
+        if (head != tail) {
+            while (element != tail) {
+                if (element.next == tail) {
+                    tail = element;
+                    tail.next = null;
+                    break;
+                }
+                element = element.next;
             }
-            element = element.next;
+        } else {
+            head = null;
         }
     }
     //правильный метод удаления элемента из конца списка в случае двусвязного списка (ПОЧЕМУ-ТО НЕ РАБОТАЕТ)
 //    public void removingFromEnd () {
-//        tail = tail.prev;
+//        if (head != tail) {
+//            tail = tail.prev;
+//        } else {
+//            tail = null;
+//        }
 //    }
 
-    //метод определения на содержание заданного значения
-    public Linker keySearch (String key) {
+    //метод определения на содержание заданного значения (задание для односвязного списка)
+    public Linker keySearch(String key) {
         Linker element = head;
         while (element != null) {
             if (Objects.equals(element.data, key)) {
@@ -99,8 +115,8 @@ public class List {
         return null;
     }
 
-    //метод удаления из списка заданного значения
-    public void keySearchAndRemove (String key) {
+    //метод удаления из списка заданного значения (задание для односвязного списка)
+    public void keySearchAndRemove(String key) {
         Linker element = head;
         Linker previousElement = head;
         while (element.data != null && !element.data.equals(key)) {
@@ -116,18 +132,14 @@ public class List {
         }
     }
 
-    //метод добавления к элементам списка заданного значения
-    public void modifyElement (String mod) {
+    //метод добавления к элементам списка заданного значения (задание для односвязного списка)
+    public void modifyElement(String mod) {
         Linker element = head;
-        if (element != null) {
-            while (element != null) {
-                element.data = element.data + mod;
-                element = element.next;
-            }
-            System.out.print('\n');
-        } else {
-            throw new IllegalArgumentException("The list is null. ");
+        while (element != null) {
+            element.data = element.data + mod;
+            element = element.next;
         }
+        System.out.print('\n');
     }
 
     //метод добавления элементов массива в начало списка
@@ -156,7 +168,7 @@ public class List {
         }
     }
 
-    //метод получения N-ого элемента
+    //метод получения N-ого элемента (вспомогательный метод для реализации поглощения списка списком)
     public String getElement (int N) {
         int i = 0;
         Linker element = head;
@@ -172,7 +184,7 @@ public class List {
         }
     }
 
-    //метод счёта длины списка
+    //метод счёта длины списка (вспомогательный метод для реализации поглощения списка списком)
     public int getLength () {
         int i = 0;
         Linker element = head;
@@ -183,19 +195,21 @@ public class List {
         return i;
     }
 
-    //метод добавления элементов списка в начало списка
-    public void addListToBegin (List list1) {
-        for (int i = list1.getLength()-1; i >= 0; i--) {
-            addToBegin(list1.getElement(i));
+    //метод поглощения списка списком с добавлением его в начало списка
+    public void absorptionListToBegin (List list) {
+        for (int i = list.getLength()-1; i >= 0; i--) {
+            addToBegin(list.getElement(i));
+            list.removingFromEnd();
         }
-        System.out.print('\n');
     }
-    //метод добавления элементов списка в конец списка
-    public void addListToEnd (List list1) {
-        for (int i = 0; i < list1.getLength(); i++) {
-            addToEnd(list1.getElement(i));
+    //метод поглощения списка списком с добавлением его в конец списка
+    public void absorptionListToEnd (List list) {
+        for (int i = 0; i < list.getLength(); i++) {
+            addToEnd(list.getElement(i));
         }
-        System.out.print('\n');
+        for (int i = list.getLength()-1; i >= 0; i--) {
+            list.removingFromBegin();
+        }
     }
 
     //обратный метод печатания заданного в main списка с проверкой его пустоты
