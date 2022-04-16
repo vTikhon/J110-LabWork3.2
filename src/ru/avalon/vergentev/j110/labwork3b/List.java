@@ -22,7 +22,6 @@ public class List {
     //метод добавления элемента в начало списка
     public void addToBegin(String data) {
         Linker element = new Linker(data);
-        element.data = data;
         if (isEmpty()) {
             head = element;
             tail = element;
@@ -35,7 +34,6 @@ public class List {
     //метод добавления элемента в конец списка
     public void addToEnd(String data) {
         Linker element = new Linker(data);
-        element.data = data;
         if (isEmpty()) {
             head = element;
             tail = element;
@@ -170,18 +168,21 @@ public class List {
 
     //метод получения N-ого элемента (вспомогательный метод для реализации поглощения списка списком)
     public String getElement (int N) {
-        int i = 0;
-        Linker element = head;
-        while (element != null && N != i) {
-            i++;
-            element = element.next;
+        try {
+            int i = 0;
+            Linker element = head;
+            while (element != null && N != i) {
+                i++;
+                element = element.next;
+            }
+            if (N >= i) {
+                assert element != null;
+                return element.data;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("index out of the range");
         }
-        if (N >= i) {
-            assert element != null;
-            return element.data;
-        } else {
-            throw new IllegalArgumentException ("index out of the range");
-        }
+        return null;
     }
 
     //метод счёта длины списка (вспомогательный метод для реализации поглощения списка списком)
