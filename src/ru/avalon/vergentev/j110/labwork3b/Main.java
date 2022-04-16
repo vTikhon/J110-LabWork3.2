@@ -4,51 +4,37 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        List list1 = new List(); //задаём список
-        list1.addToEnd("AAA");
-        list1.addToEnd("BBB");
-        list1.addToEnd("CCC");
-        list1.addToEnd("DDD");
-        list1.addToBegin("ddd");
-        list1.addToBegin("ccc");
-        list1.addToBegin("bbb");
-        list1.addToBegin("aaa");
-        list1.print(); //прямой вывод списка
-        list1.removingFromBegin();
-        list1.removingFromEnd();
-        list1.print();
+        //работа со списком, который формируется с добавлением элементов в начало и в конец
+        List myList1 = new List(); //задаём наш список
+            myList1.addToEnd("ccc");
+            myList1.addToEnd("ddd");
+            myList1.addToBegin("BBB");
+            myList1.addToBegin("AAA");
+        System.out.println("The list is:");
+            myList1.print(); //выводим наш список
 
+        String [] array1 = new String[] {"hh", "jj"}; //задаём массив
+            myList1.addArrayToBegin(array1); //добавляем элементы массива в начало списка
+            myList1.addArrayToEnd(array1); //добавляем элементы массива в конец списка
+        System.out.println("The list with array is:");
+            myList1.print(); //выводим изменённый список на экран
 
+        ArrayList<String> arrayList = new ArrayList<>(); // задаём коллекцию ArrayList
+            arrayList.add("11");
+            arrayList.add("22");
+            myList1.addCollectionToBegin(arrayList); //добавляем элементы коллекции в начало списка
+            myList1.addCollectionToEnd(arrayList); //добавляем элементы коллекции в конец списка
+        System.out.println("The list with array and arrayList is:");
+            myList1.print(); //выводим изменённый список на экран
 
-//        String [] array1 = new String[] {"hh", "jj", "kk"}; // задаём массив
-//        list1.addArrayToBegin(array1); //добавляем элементы массива в начало списка
-//        list1.print(); //выводим изменённый список на экран
-//        list1.addArrayToEnd(array1); //добавляем элементы массива в конец списка
-//        list1.print(); //выводим изменённый список на экран
-
-//        List list2 = new List();  //задаём список
-//        list2.addToEnd("aaa");
-//        list2.addToEnd("bbb");
-//        list2.addToEnd("ccc");
-//        list2.addToEnd("ddd");
-//        list2.print();
-//        ArrayList<String> list3 = new ArrayList<>(); // задаём коллекцию
-//        list3.add("11");
-//        list3.add("22");
-//        list3.add("33");
-//        list2.addCollectionToBegin(list3); //добавляем элементы коллекции в начало списка
-//        list2.print(); //выводим изменённый список на экран
-//        list2.addCollectionToEnd(list3); //добавляем элементы коллекции в конец списка
-//        list2.print(); //выводим изменённый список на экран
-//        list2.addListToEnd(list1);
-//        list2.print();
-//        list2.getElement(3); //получение содержимого элемента по номеру
-//        list2.getLength(); //длина списка
-//        list2.addListToBegin(list1); //добавляем элементы списка в начало списка
-//        list2.print();
-//        list2.addListToEnd(list1); //добавляем элементы списка в конец списка
-//        list2.print();
-//        list2.printInverse(); //обратный вывод списка
+            myList1.addListToEnd(myList1);
+            myList1.print();
+            myList1.getElement(3); //получение содержимого элемента по номеру
+            myList1.getLength(); //длина списка
+            myList1.addListToBegin(myList1); //добавляем элементы списка в начало списка
+            myList1.addListToEnd(myList1); //добавляем элементы списка в конец списка
+            myList1.print();
+            myList1.printInverse(); //обратный вывод списка
 
     }
 }

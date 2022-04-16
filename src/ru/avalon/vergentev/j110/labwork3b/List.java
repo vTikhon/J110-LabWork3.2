@@ -1,18 +1,19 @@
 package ru.avalon.vergentev.j110.labwork3b;
 
+import java.util.Objects;
 import java.util.ArrayList;
 
 public class List {
-    private LinkedList head;
-    private LinkedList tail;
+    private Linker head;
+    private Linker tail;
 
-    //Constructors
+    //CONSTRUCTORS
     public List() {
         head = null;
         tail = null;
     }
 
-    //Methods
+    //METHODS
     //метод определяющий является ли элемент пустым
     public boolean isEmpty() {
         return head == null;
@@ -20,7 +21,7 @@ public class List {
 
     //метод добавления элемента в начало списка
     public void addToBegin (String data) {
-        LinkedList element = new LinkedList(data);
+        Linker element = new Linker(data);
         element.data = data;
         if (isEmpty()) {
             head = element;
@@ -32,7 +33,7 @@ public class List {
     }
     //метод добавления элемента в конец списка
     public void addToEnd (String data) {
-        LinkedList element = new LinkedList(data);
+        Linker element = new Linker(data);
         element.data = data;
         if (isEmpty()) {
             head = element;
@@ -45,7 +46,7 @@ public class List {
 
     //прямой метод печатания заданного в main списка с проверкой его пустоты
     public void print () {
-        LinkedList element = head;
+        Linker element = head;
         if (element != null) {
             while (element != null) {
                 System.out.println(element.data);
@@ -58,14 +59,12 @@ public class List {
     }
 
     //метод извлечения элемента из начала списка
-    public void extractionFromBegin () {
-        LinkedList element = head;
-        System.out.println(element.data);
+    public Linker extractionFromBegin () {
+        return head;
     }
     //метод извлечения элемента из конца списка
-    public void extractionFromEnd () {
-        LinkedList element = tail;
-        System.out.println(element.data);
+    public Linker extractionFromEnd () {
+        return tail;
     }
 
     //метод удаления элемента из начала списка
@@ -74,7 +73,7 @@ public class List {
     }
     //метод удаления элемента из конца списка
     public void removingFromEnd () {
-        LinkedList element = head;
+        Linker element = head;
         while (element != tail) {
             if (element.next == tail) {
                 tail = element;
@@ -83,42 +82,43 @@ public class List {
             element = element.next;
         }
     }
-    //метод удаления элемента из конца списка (ПОЧЕМУ-ТО НЕ РАБОТАЕТ)
+    //правильный метод удаления элемента из конца списка в случае двусвязного списка (ПОЧЕМУ-ТО НЕ РАБОТАЕТ)
 //    public void removingFromEnd () {
 //        tail = tail.prev;
 //    }
 
     //метод определения на содержание заданного значения
-    public void keySearch (String key) {
-        LinkedList element = head;
+    public Linker keySearch (String key) {
+        Linker element = head;
         while (element != null) {
-            if (element.data == key) {
-                System.out.println("There is the searching element " + key + " at the list. ");
-                System.out.print('\n');
+            if (Objects.equals(element.data, key)) {
+                return element;
             }
             element = element.next;
         }
+        return null;
     }
 
     //метод удаления из списка заданного значения
     public void keySearchAndRemove (String key) {
-        LinkedList element = head;
-        LinkedList prevElement = head;
-        while (element.data != null && element.data != key) {
-            prevElement = element;
+        Linker element = head;
+        Linker previousElement = head;
+        while (element.data != null && !element.data.equals(key)) {
+            previousElement = element;
             element = element.next;
         }
-
         if (isEmpty()) {
             head = head.next;
+        } else if (element == head) {
+            head = head.next;
         } else {
-            prevElement.next = element.next;
+            previousElement.next = element.next;
         }
     }
 
     //метод добавления к элементам списка заданного значения
     public void modifyElement (String mod) {
-        LinkedList element = head;
+        Linker element = head;
         if (element != null) {
             while (element != null) {
                 element.data = element.data + mod;
@@ -135,14 +135,12 @@ public class List {
         for (int i = array1.length-1; i >= 0; i--) {
             addToBegin(array1[i]);
         }
-        System.out.print('\n');
     }
     //метод добавления элементов массива в конец списка
     public void addArrayToEnd (String [] array1) {
         for (String i : array1) {
             addToEnd(i);
         }
-        System.out.print('\n');
     }
 
     //метод добавления элементов коллекции в начало списка
@@ -150,25 +148,24 @@ public class List {
         for (int i = list2.size()-1; i >= 0; i--) {
             addToBegin(list2.get(i));
         }
-        System.out.print('\n');
     }
     //метод добавления элементов коллекции в конец списка
     public void addCollectionToEnd (ArrayList<String> list2) {
         for (String i : list2) {
             addToEnd(i);
         }
-        System.out.print('\n');
     }
 
     //метод получения N-ого элемента
     public String getElement (int N) {
         int i = 0;
-        LinkedList element = head;
+        Linker element = head;
         while (element != null && N != i) {
             i++;
             element = element.next;
         }
         if (N >= i) {
+            assert element != null;
             return element.data;
         } else {
             throw new IllegalArgumentException ("index out of the range");
@@ -178,7 +175,7 @@ public class List {
     //метод счёта длины списка
     public int getLength () {
         int i = 0;
-        LinkedList element = head;
+        Linker element = head;
         while (element != null) {
             i++;
             element = element.next;
